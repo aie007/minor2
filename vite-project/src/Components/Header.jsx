@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import Navbar from './Navbar'
 import styled from 'styled-components'
+import Home from '../Home'
 const Header = () => {
   return (
 
@@ -9,6 +10,12 @@ const Header = () => {
       <NavLink to="/">
         <img src="./Images/inventory_logo.png" alt="logo" className='logo' />
       </NavLink>
+
+      <div>
+        <NavLink to="/home">
+          Home
+        </NavLink>
+      </div>
       <Navbar />
       </MainHeader>
     

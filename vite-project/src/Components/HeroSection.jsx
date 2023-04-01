@@ -15,7 +15,7 @@ const HeroSection = ( {name,image} ) => {
             This is Inventory for students to store their all the necessary documents.
           </p>
           <Button className="btn hireme-btn">
-            <NavLink to="/login"> Login Here </NavLink>
+            <NavLink to="/Register"> Register Now </NavLink>
           </Button>
           </div>
           

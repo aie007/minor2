@@ -2,6 +2,7 @@ import React from 'react'
 import About from './About'
 import Home from './Home'
 import Login from './Login'
+import Register from './Register'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from './Components/Header';
 import Footer from './Components/Footer';
@@ -37,6 +38,7 @@ const App = () => {
    <Header />
    <Routes>
     <Route path="/" element={<Home />} />
+    <Route path='/register' element={<Register />} />
     <Route path="/login" element={<Login />} />
     <Route path="/about" element={<About />} />
    </Routes>
