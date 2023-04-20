@@ -35,10 +35,8 @@ const Navbar = () => {
   <Nav>
     <div className='mecuIcon'>
       <ul className="navbar-list">
+
       <li>
-          <NavLink className= "navbar-link" to = "/login">Login</NavLink>
-        </li>
-        <li>
           <NavLink className= "navbar-link" to = "/">Home</NavLink>
         </li>
         <li>
@@ -46,6 +44,9 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink className= "navbar-link" to = "/about">About</NavLink>
+        </li>
+        <li>
+          <NavLink className= "navbar-link" to = "/login">Login</NavLink>
         </li>
 
       </ul>

@@ -8,7 +8,7 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import { ThemeProvider } from "styled-components"
 import { GlobalStyle } from './GlobalStyle';
-import axios from "axios";
+// import axios from "axios";
 
 const App = () => {
 

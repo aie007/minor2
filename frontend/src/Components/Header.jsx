@@ -11,11 +11,7 @@ const Header = () => {
         <img src="./Images/inventory_logo.png" alt="logo" className='logo' />
       </NavLink>
 
-      <div>
-        <NavLink to="/home">
-          Home
-        </NavLink> 
-      </div>
+
       <Navbar />
       </MainHeader>
     

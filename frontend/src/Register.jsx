@@ -55,32 +55,32 @@ export default function Register() {
 
     return (
         <div className="text-center m-5-auto">
-            <h2>Join us</h2>
+            <h2 style={{color: "lightseagreen"}}>Join us!</h2>
             <br />
             <br />
-            <h3 >Create your personal account</h3>
+            <h3 style={{color: "darkslateblue"}}>Create your personal account</h3>
             <form action="#">
                 <p>
-                    <label>Username</label><br/>
+                    <label style={{color: "darkorchid"}}>Username</label><br/>
                     <input type="text" name="username" onChange={handleUsernameChange} value={username}  required />
                 </p>
                 <p>
-                    <label>Email address</label><br/>
+                    <label style={{color: "darkorchid"}}>Email address</label><br/>
                     <input type="email" name="email" onChange={handleEmailChange} value={email}  required />
                 </p>
                 <p>
-                    <label>Are you a Teacher or a Student?</label><br/>
+                    <label style={{color: "darkorchid"}}>Are you a Teacher or a Student?</label><br/>
                     <select name="type" id="type" onChange={handleTypeChange}  required>
                         <option value="teacher">Teacher</option>
                         <option value="student">Student</option>
                     </select>
                 </p>
                 <p>
-                    <label>Password</label><br/>
+                    <label style={{color: "darkorchid"}}>Password</label><br/>
                     <input type="password" name="pwd" onChange={handlePwdChange} value={pwd}  required />
                 </p>
                 <p>
-                    <label>Confirm Password</label><br/>
+                    <label style={{color: "darkorchid"}}>Confirm Password</label><br/>
                     <input type="password" name="cnfpwd" onChange={handleCnfpwdChange} value={cnfpwd} required />
                 </p>
                 <br />
@@ -92,7 +92,7 @@ export default function Register() {
                 </p>
             </form>
             <footer>
-                <p><Link to="/">Back to Homepage</Link>.</p>
+                <p style={{textAlign: "center"}} ><Link to="/">Back to Homepage</Link>.</p>
             </footer>
         </div>
     )
