@@ -9,29 +9,9 @@ import Footer from './Components/Footer';
 import { ThemeProvider } from "styled-components"
 import { GlobalStyle } from './GlobalStyle';
 // import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
-
-  // const [profileData, setProfileData] = useState(null)
-
-  // function getData() {
-  //   axios({
-  //     method: "GET",
-  //     url:"/home",
-  //   })
-  //   .then((response) => {
-  //     const res = response.data
-  //     console.log(response)
-  //     setProfileData(({
-  //       profile_name: res.name, 
-  //       about_me: res.about}))
-  //   }).catch((error) => {
-  //     if (error.response) {
-  //       console.log(error.response)
-  //       console.log(error.response.status)
-  //       console.log(error.response.headers)
-  //       }
-  //   })}
 
   const theme = {
     colors: {

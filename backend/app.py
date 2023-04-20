@@ -330,7 +330,7 @@ def register():
 
 @app.route('/login', methods=['POST'])
 def login():
-    req_data = request.get_json()
+    req_data = request.get_json(force=True)
 
     email = req_data.get("email")
     password = req_data.get("pwd")
@@ -348,6 +348,8 @@ def login():
     token = create_access_token(identity=user_exists.userid)
     user_exists.set_jwt_auth_active(True)
     user_exists.save()
+
+    print(user_exists.toJSON())
 
     return {"success": True,
             "token": token,
