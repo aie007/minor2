@@ -290,7 +290,7 @@ def create_token():
 @app.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':
-        req_data = request.get_json()
+        req_data = request.get_json(force=True)
 
         username = req_data.get("username")
         email = req_data.get("email")
