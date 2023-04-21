@@ -1,9 +1,10 @@
+
 import React from 'react'
 import HeroSection from './Components/HeroSection'
 const Home = () => {
   const data = {
-    name : "New Inventory shop",
-    image : "./Images/docs.png",
+    name : "Documents Inventory App",
+    image : "./Images/inventory1.webp",
   }
   return (
     // <div>Home</div>
@@ -13,3 +14,10 @@ const Home = () => {
 }
 
 export default Home
+
+
+
+
+
+
+

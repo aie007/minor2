@@ -11,7 +11,7 @@ const HeroSection = ( {name,image} ) => {
       <div className="container grid grid-two-column">
         <div className="section-hero-data">
           <h1 className="hero-heading">{name}</h1>
-          <p className="hero-para">
+          <p className="hero-para" style={{color: "red"}}>
             This is Inventory for students to store their all the necessary documents.
           </p>
           <Button className="btn hireme-btn">
@@ -65,7 +65,7 @@ picture {
   text-align: center;
 }
 .hero-img {
-  max-width: 80%;
+  max-width: 125%;
 }
 @media (max-width: ${({ theme }) => theme.media.mobile}) {
   .grid {
@@ -76,3 +76,4 @@ picture {
 
 
 export default HeroSection;
+

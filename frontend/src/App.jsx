@@ -9,7 +9,6 @@ import Footer from './Components/Footer';
 import { ThemeProvider } from "styled-components"
 import { GlobalStyle } from './GlobalStyle';
 // import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
 
@@ -40,7 +39,7 @@ const App = () => {
    <BrowserRouter>
    <Header />
    <Routes>
-    <Route path="/home" element={<Home />} />
+    <Route path="/" element={<Home />} />
     <Route path='/register' element={<Register />} />
     <Route path="/login" element={<Login />} />
     <Route path="/about" element={<About />} />
