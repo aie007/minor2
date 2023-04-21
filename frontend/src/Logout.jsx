@@ -1,38 +1,24 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Alert from 'react-bootstrap/Alert' 
 
-import './Loginform.css'
-export default function Login(props) {
-    const [email, setEmail] = useState('')
-    const [pwd, setPwd] = useState('')
+export default function Logout() {
     const [msg, setMsg] = useState('')
     const [show, setShow] = useState(false);
     const [success, setSuccess] = useState();
 
     const onSubmitClick = (e)=>{
         e.preventDefault()
-        console.log("You pressed login")
-        let opts = {
-          'email': email,
-          'pwd': pwd
-        }
-        console.log(opts)
-        fetch('/login', {
+        console.log("You pressed logout")
+        fetch('/logout', {
           method: 'post',
-          body: JSON.stringify(opts)
+          body: {}
         }).then(r => r.json())
             .then(result => {
               setSuccess(result.success);
-            //   console.log("helloww")
-            //   props.setLoggedIn(true);
-            //   console.log("hiiiya")
-            //   props.setType(result.user.type);
-              console.log("ewww")
-              console.log(result.user.type);
               if(result.success) {
-                  var message = 'Welcome ' + result.user.username + '. OOya!';
+                  var message = 'Yeesss ' + result.user.username + '. OOya!';
                   setMsg(message);
                   setShow(true);
               }
@@ -51,14 +37,6 @@ export default function Login(props) {
           })
       }
 
-      const handleEmailChange = (e) => {
-        setEmail(e.target.value)
-      }
-
-      const handlePwdChange = (e) => {
-        setPwd(e.target.value)
-      }
-
     return (
       <div>
         { success == true &&
@@ -75,26 +53,17 @@ export default function Login(props) {
                 </Alert></center>
             }
         <div className="text-center m-5-auto">
-            <h2 style={{color: "lightseagreen"}}>Login Here!</h2>
+            <h2 style={{color: "lightseagreen"}}>Do you wish to logout?</h2>
             <br />
             <br />
             <h3 ></h3>
-            <form action="#">
+            <form action="#">                
                 <p>
-                    <label style={{color: "darkorchid"}}>Email</label><br/>
-                    <input type="email" name="email" onChange={handleEmailChange} value={email}  required />
+                    <button id="sub_btn" type="submit" onClick={onSubmitClick}>Yes, log me out</button>
                 </p>
-                <p>
-                    <label style={{color: "darkorchid"}}>Password</label><br/>
-                    <input type="password" name="pwd" onChange={handlePwdChange} value={pwd}  required />
-                </p>
-                <br />
-                <p>
-                    <button id="sub_btn" type="submit" onClick={onSubmitClick}>Login</button>
-                </p>
+                <p><Link to="/">No, go back to Home</Link>.</p>
             </form>
             <footer>
-                <p><Link to="/">Back to Homepage</Link>.</p>
             </footer>
         </div>
       </div>

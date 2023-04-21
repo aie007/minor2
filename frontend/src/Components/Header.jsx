@@ -2,19 +2,38 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import Navbar from './Navbar'
 import styled from 'styled-components'
-import Home from '../Home'
-const Header = () => {
-  return (
+import NavbarTeacher from './Navbar2'
+import NavbarStudent from './Navbar3'
 
+const Header = (props) => {
+  const isLoggedIn = props.isLoggedIn;
+  const isTeacher = props.isTeacher;
+  if(isLoggedIn && isTeacher)
+  return (
     <MainHeader>
       <NavLink to="/">
         <img src="./Images/inventory_logo.png" alt="logo" className='logo' />
       </NavLink>
-
-
-      <Navbar />
+      <NavbarTeacher />
       </MainHeader>
-    
+  )
+  else if(isLoggedIn && !isTeacher)
+  return (
+    <MainHeader>
+      <NavLink to="/">
+        <img src="./Images/inventory_logo.png" alt="logo" className='logo' />
+      </NavLink>
+      <NavbarStudent />
+      </MainHeader>
+  )
+  else
+  return (
+    <MainHeader>
+      <NavLink to="/">
+        <img src="./Images/inventory_logo.png" alt="logo" className='logo' />
+      </NavLink>
+      <NavbarTeacher />
+      </MainHeader>
   )
   }
 

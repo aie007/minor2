@@ -3,15 +3,22 @@ import About from './About'
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
+import Tags from './Tags'
+import ProfileS from './ProfileS'
+import ProfileT from './ProfileT'
+import Logout from './Logout'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from './Components/Header';
 import Footer from './Components/Footer';
+import useToken from './Components/useToken'
 import { ThemeProvider } from "styled-components"
 import { GlobalStyle } from './GlobalStyle';
 // import axios from "axios";
 
 const App = () => {
-
+  const { token, removeToken, setToken } = useToken();
+  const { isLoggedIn, setLoggedIn } = useState(false);
+  const { isTeacher, setTeacher } = useState(false);
   const theme = {
     colors: {
       heading: "rgb(24 24 29)",
@@ -37,19 +44,19 @@ const App = () => {
   <ThemeProvider theme = {theme}>
   <GlobalStyle />
    <BrowserRouter>
-   <Header />
-   <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path='/register' element={<Register />} />
-    <Route path="/login" element={<Login />} />
-    <Route path="/about" element={<About />} />
-   </Routes>
-   {/* <div> <p>To get your profile details: </p><button onClick={getData}>Click me</button>
-        {profileData && <div>
-              <p>Profile name: {profileData.profile_name}</p>
-              <p>About me: {profileData.about_me}</p>
-            </div>
-        } </div> */}
+   <Header isLoggedIn={isLoggedIn} isTeacher={isTeacher} />
+    <>
+      <Routes>
+        <Route path="/home" element={<Home isLoggedIn={isLoggedIn} isTeacher={isTeacher}/>} />
+        <Route path="/about" element={<About isLoggedIn={isLoggedIn} isTeacher={isTeacher}/>} />
+        <Route path='/register' element={<Register isLoggedIn={isLoggedIn} isTeacher={isTeacher}/>} />
+        <Route path="/login" element={<Login isLoggedIn={isLoggedIn} isTeacher={isTeacher}/>} />
+        <Route path="/updateStudent" element={<ProfileS isLoggedIn={isLoggedIn} isTeacher={isTeacher}/>}/>
+        <Route path="/updateTeacher" element={<ProfileT isLoggedIn={isLoggedIn} isTeacher={isTeacher}/>}/>
+        <Route path="/tags" element={<Tags isLoggedIn={isLoggedIn} isTeacher={isTeacher}/>}/>
+        <Route path='/logout' element={<Logout isLoggedIn={isLoggedIn} isTeacher={isTeacher}/>} />
+      </Routes>
+    </>
    <Footer />
    </BrowserRouter>
   </ThemeProvider>

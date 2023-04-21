@@ -4,10 +4,18 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta, timezone
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 import json
 from functools import wraps
 from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('HELLO WORLD')
 # from config import BaseConfig
+
+UPLOAD_FOLDER = '/uploads/'
+ALLOWED_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg'])
 
 app = Flask(__name__)
 
@@ -24,6 +32,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://postgres:postgres@localhost/CollegeInventory'
 
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
@@ -50,7 +60,7 @@ def refresh_expiring_jwts(response):
                 response.data = json.dumps(data)
         return response
     except (RuntimeError, KeyError):
-        # Case where there is not a valid JWT. Just return the original respone
+        # Case where there is not a valid JWT. Just return the original response
         return response
 
 app.app_context().push()
@@ -263,6 +273,16 @@ class Tag(db.Model):
     @classmethod
     def get_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
+    
+    def toDICT(self):
+        cls_dict = {}
+        cls_dict['name'] = self.name
+        cls_dict['type'] = self.type
+
+        return cls_dict
+
+    def toJSON(self):
+        return self.toDICT()
 
 @app.route("/home")
 @jwt_required()
@@ -357,11 +377,11 @@ def login():
 
 
 @app.route("/logout", methods=["POST"])
-@jwt_required()
+# @jwt_required()
 def logout():
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
-    return response
+    return response, 200
 
 @app.route('/updateStudent', methods=['POST','GET'])
 @jwt_required()
@@ -462,7 +482,7 @@ def uploadcert():
         return {"success": False,
                 "msg": "Student does not exist"}, 400
     
-    req_data = request.get_json
+    req_data = request.get_json(force=True)
 
     certname = req_data.get("certname")
     domain = req_data.get("domain")
@@ -474,15 +494,23 @@ def uploadcert():
         return {"success": False,
                 "msg": "Invalid input"}, 400
 
-    domains = Tag.quer.filter_by(type="domain").all()
+    domains = Tag.query.filter_by(type="domain").all()
     issued_bys = Tag.query.filter_by(type="issued_by").all()
     if not domains or not issued_bys or domain not in domains or issued_by not in issued_bys:
         return {"success": False,
                 "msg": "Requested tag not available. Ask your teacher to create one!"}, 400
 
     # aws s3 code to get url 
+    target=os.path.join(UPLOAD_FOLDER,'test_docs')
+    if not os.path.isdir(target):
+        os.mkdir(target)
+    logger.info("welcome to upload")
+    file = request.files['file'] 
+    filename = secure_filename(file.filename)
+    destination="/".join([target, filename])
+    file.save(destination)
 
-    new_certificate = Certificate(certname=certname, certurl="xyz.com", domain=domain, issued_by=issued_by, issued_on=issued_on, validity=validity)
+    new_certificate = Certificate(certname=certname, certurl=destination, domain=domain, issued_by=issued_by, issued_on=issued_on, validity=validity)
     
     new_certificate.save()
 
@@ -525,6 +553,31 @@ def displaycert():
     return {"success": True,
             "msg": "Certificates available",
             "certificates": jsonify(allCertificates)}, 200
+
+@app.route('/tags', methods=['POST', 'GET'])
+def tags():
+    if request.method == 'POST':
+        req_data = request.get_json(force=True)
+
+        name = req_data.get("name")
+        type = req_data.get("type")
+
+        if not name or not type:
+            return {"success": False,
+                "msg": "Invalid input"}, 400
+        
+        newtag = Tag(name=name, type=type)
+
+        newtag.save()
+
+        return {"success": True,
+                "msg": "Tag created", 
+                "tag": newtag.toJSON()}, 200
+    else:
+        all_tags = Tag.query.all()
+        print(all_tags)
+        return {"success": True,
+                "tags": all_tags.to_JSON()}, 200
 
 if __name__ == '__main__':
     app.run()

@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components';
 
-const Navbar = () => {
+const NavbarTeacher = () => {
   const Nav = styled.nav`
   .navbar-list {
     display: flex;
@@ -43,10 +43,16 @@ const Navbar = () => {
           <NavLink className= "navbar-link" to = "/about">About</NavLink>
         </li>
         <li>
-          <NavLink className= "navbar-link" to = "/register">Register</NavLink>
+          <NavLink className= "navbar-link" to = "/profileT">Profile</NavLink>
         </li>
         <li>
-          <NavLink className= "navbar-link" to = "/login">Login</NavLink>
+          <NavLink className= "navbar-link" to = "/tags">Tags</NavLink>
+        </li>
+        <li>
+          <NavLink className= "navbar-link" to = "/upload">Upload</NavLink>
+        </li>
+        <li>
+          <NavLink className= "navbar-link" to = "/logout">Logout</NavLink>
         </li>
 
       </ul>
@@ -58,4 +64,4 @@ const Navbar = () => {
   
 }
 
-export default Navbar
+export default NavbarTeacher
